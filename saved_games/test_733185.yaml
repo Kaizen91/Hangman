@@ -1,0 +1,18 @@
+---
+:player_name: s
+:computer_code: 'miletus
+
+'
+:secret_word:
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+:guessed_letters:
+- a
+- e
+:wrong_answers: 1
