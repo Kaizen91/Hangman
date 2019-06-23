@@ -40,7 +40,7 @@ class Game
     end
 
     def save_game
-        Dir.mkdir("./saved_games/") unless Dir.exists?("/saved_games/")
+        Dir.mkdir("../saved_games/") unless Dir.exists?("../saved_games/")
         puts "Would you like to save the game Y/N"
         if gets.chomp.downcase[0] == "y"
             puts "name your file"
@@ -66,7 +66,7 @@ class Game
     end
 
 def load_game
-    save_file = Dir.open("./saved_games/")
+    save_file = Dir.open("../saved_games/")
     puts "\n CURRENT SAVES \n"
 
     Dir.foreach(save_file) do |file| 
@@ -76,8 +76,8 @@ def load_game
     puts "\n Which file would you like to load?"
     previous_save = gets.chomp.to_s
 
-    if File.exist?("./saved_games/#{previous_save}.yaml")
-        data = YAML.load(File.read("./saved_games/#{previous_save}.yaml"))
+    if File.exist?("../saved_games/#{previous_save}.yaml")
+        data = YAML.load(File.read("../saved_games/#{previous_save}.yaml"))
 
         player.name = data[:player_name]
         computer.code = data[:computer_code]
@@ -144,7 +144,7 @@ end
 class Computer
     attr_accessor :wordlist, :code
     def initialize
-        @wordlist = File.open("wordlist.txt")
+        @wordlist = File.open("../wordlist.txt")
         @code = choose_random_word
     end
 
@@ -214,4 +214,4 @@ class Board
     end
 end
 
-Game.new
+
