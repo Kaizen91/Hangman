@@ -1,0 +1,24 @@
+
+<%= if board.wrong_answers >= 6 %>
+    <img class="hangman" src="/images/Hangman-6.png" alt = "hangman image">
+    <div class= "losing_message">  
+    <p>You Lose!</p> 
+    <p><%= "The word was #{code}" %></p>
+    <%= erb :new_game %>
+    </div>
+
+
+<%= elsif !board.secret_word.any?("_")%>
+    <div class = "wining message">
+    <p>You Win!</p>
+    <p><%= "The word was #{code}" %></p>
+        <%= erb :new_game %>
+    </div>
+
+<%= else %>
+  <%= erb :display_hangman, :locals => {:wrong_answers => wrong_answers} %>
+  <%= erb :guess_letter, :locals => {:secret_word => secret_word,
+                                     :code => code,
+                                     :guessed_letters => guessed_letters }%>
+<%= end %>
+
