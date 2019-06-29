@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require_relative 'lib/hangman'
 
+
 enable :sessions
 
 get '/' do 
@@ -12,6 +13,8 @@ post '/' do
     session[:game] = Game.new
     redirect to('/game')
 end
+
+
 
 get '/game' do 
     erb :game, :locals => {:secret_word => session[:game].secret_word,

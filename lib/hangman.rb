@@ -1,14 +1,13 @@
 
-
 class Game
     attr_accessor :wrong_answers, :secret_word, :code, :guessed_letters, :wordlist
     def initialize
-
+       
         @code = choose_random_word
         @secret_word = secret_word
         @guessed_letters = []
         @wrong_answers = 0
-        @wordlist = File.open("wordlist.txt")
+        
         
     end
 
@@ -18,16 +17,13 @@ class Game
     end
 
 
-    def choose_random_word 
-        random_word = []
-       @wordlist.rewind
-       @wordlist.each do |word|
-            if (word.length >= 5 && word.length <= 12)
-                random_word.push(word.downcase)
-            end
+    def choose_random_word
+        words = File.readlines('wordlist.txt')
+        word = " "
+        until (word.length <= 11 && word.length >= 5)
+          word = words[rand(words.length)].chomp.upcase
         end
-        random_word = random_word[rand(random_word.length)]
-        return random_word
+        word
     end
 
     def guess_wrong
