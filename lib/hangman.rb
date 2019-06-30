@@ -38,7 +38,6 @@ class Game
                     end
                 end
             end
-            print  "secret word: #{@secret_word.join()} \n"
     end
 
     def display
@@ -49,7 +48,7 @@ class Game
 
 
     def add_to_guessed_letters(guess)
-        @guessed_letters.any?(guess) ? "": @guessed_letters << guess
+        if @guessed_letters.any?(guess) then @guessed_letters << guess end 
     end
 
 

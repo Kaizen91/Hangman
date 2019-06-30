@@ -1,0 +1,20 @@
+<div class="guess_form">
+  <p>Please guess a letter of the secret word:</p>
+  <p class="clues_inputs"><%= secret_word %></p>
+</div>
+
+<div class="guess_form">
+  <form action="/game" method='POST'>
+    <p class="clues_inputs"><input type="text" name="guessed_letter" maxlength="1"><br><br></p>
+    <p class="clues_inputs"><input type="submit" value="Guess Letter"></p>
+  </form>
+</div>
+
+<div class="guess_form">
+  <p>Incorrect Letters:</p>
+  <p><%= "#{guessed_letters}" %></p>
+</div>
+
+<form class="back_to_menu_btn" action='/' method='GET'>
+  <input type='submit' value='Back to Menu'>
+</form>
