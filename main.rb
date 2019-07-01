@@ -27,21 +27,16 @@ end
 post '/game' do
     guessed_letter = params['guessed_letter']
     
-    #looks to see if a letter was guessed
-    #if !session[:game].code.split(//).any?(/[a-z][A-Z]/) then redirect to("/game") end
-
-    #looks to see if the letter has already been guessed or if the guess is correct length
-    if (!session[:game].guessed_letters.include?(guessed_letter) && guessed_letter.length == 1)
+    if session[:game].check_guess_format(guessed_letter)
         if session[:game].any_letters?(guessed_letter)
-            session[:game].display_letters
-            session[:game].add_to_guessed_letters(guessed_letter)
-        else   
-            session[:game].guess_wrong
+            session[:game].guess_is_right(guessed_letter)
+        else
+            session[:game].guess_wrong(guessed_letter)
         end
-    else 
+    else
         redirect to("/game")
     end
-    
+
     erb :game, :locals => {:game => session[:game],
         :guessed_letters => session[:game].guessed_letters,
         :secret_word => session[:game].secret_word,

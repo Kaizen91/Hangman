@@ -11,10 +11,31 @@ class Game
         
     end
 
-
     def any_letters?(guess)
         @code.include?(guess) ? true : false
     end
+
+    def check_guess_format(guess)
+        if (!guessed_letters.include?(guess) && guess.length == 1  && guess.count("a-zA-Z") > 0)
+            return true
+        else
+            return false
+        end
+    end
+
+    def guess_is_right(guess)
+         display_letters 
+         add_to_guessed_letters(guess) 
+    end
+
+    def guess_wrong(guess)
+        @wrong_answers += 1
+        add_to_guessed_letters(guess)
+    end
+ 
+
+
+
 
 
     def choose_random_word
@@ -26,9 +47,7 @@ class Game
         word
     end
 
-    def guess_wrong
-        @wrong_answers += 1
-    end
+    
 
     def display_letters
             @guessed_letters.each do |guess|
@@ -48,7 +67,7 @@ class Game
 
 
     def add_to_guessed_letters(guess)
-        if @guessed_letters.any?(guess) then @guessed_letters << guess end 
+        if !@guessed_letters.any?(guess) then @guessed_letters << guess end 
     end
 
 
