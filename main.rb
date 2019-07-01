@@ -2,8 +2,9 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require_relative 'lib/hangman'
 
-
-enable :sessions
+configure do
+    enable :sessions
+end 
 
 get '/' do 
     erb :index
@@ -18,28 +19,28 @@ end
 
 get '/game' do 
     erb :game, :locals => {:game => session[:game],
-        :secret_word => session[:game].secret_word,
+        :encrypted_word => session[:game].secret_word,
         :wrong_answers => session[:game].wrong_answers,
         :code => session[:game].code,
         :guessed_letters => session[:game].guessed_letters}
 end
 
 post '/game' do
-    guessed_letter = params['guessed_letter']
+    guessed_letter = params['guessed_letter'].upcase
     
     if session[:game].check_guess_format(guessed_letter)
-        if session[:game].any_letters?(guessed_letter)
-            session[:game].guess_is_right(guessed_letter)
+        if session[:game].any_letters?(guessed_letter) #works
+            session[:game].guess_is_right(guessed_letter) #doesn't work
         else
-            session[:game].guess_wrong(guessed_letter)
+            session[:game].guess_wrong(guessed_letter) #works
         end
     else
-        redirect to("/game")
+        redirect to("/")
     end
 
     erb :game, :locals => {:game => session[:game],
         :guessed_letters => session[:game].guessed_letters,
-        :secret_word => session[:game].secret_word,
+        :encrypted_word => session[:game].secret_word,
         :wrong_answers => session[:game].wrong_answers,
         :code => session[:game].code,
         :guessed_letter => guessed_letter}

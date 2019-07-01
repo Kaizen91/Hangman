@@ -16,7 +16,7 @@
 
 <% else %>
   <%= erb :display_hangman, :locals => {:wrong_answers => wrong_answers} %>
-  <%= erb :guess_letter, :locals => {:secret_word => secret_word,
+  <%= erb :guess_letter, :locals => {:encrypted_word => encrypted_word,
                                      :code => code,
                                      :guessed_letters => guessed_letters }%>
 <% end %>

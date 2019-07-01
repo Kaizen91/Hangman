@@ -4,14 +4,14 @@ class Game
     def initialize
        
         @code = choose_random_word
-        @secret_word = secret_word
+        @secret_word = generate_secret_word
         @guessed_letters = []
         @wrong_answers = 0
-        
-        
+           
     end
 
     def any_letters?(guess)
+        guess = guess.upcase
         @code.include?(guess) ? true : false
     end
 
@@ -23,9 +23,32 @@ class Game
         end
     end
 
-    def guess_is_right(guess)
-         display_letters 
-         add_to_guessed_letters(guess) 
+    def add_to_guessed_letters(guess)
+        guess = guess.upcase
+        if !@guessed_letters.any?(guess) then @guessed_letters << guess end 
+    end
+
+    def display_correctly_guessed_letters(guess)
+        index_of_correct_guess = @code.split("").each_index.select {|i| puts "i =#{i}" }
+        index_of_correct_guess.each { |n|  puts "n = #{n}"}
+        puts "#{@secret_word}"
+    end
+
+    def display_letters
+        @guessed_letters.each do |guess|
+            @code.split("").each_with_index do |letter, index|
+                puts "#{@code}, #{@guessed_letters}, #{@secret_word}, #{letter}, #{index}"
+                if guess.upcase == letter.upcase 
+                    @secret_word[index] = guess
+                end
+                puts "#{@code}, #{@guessed_letters}, #{@secret_word}, #{letter}, #{index}"
+            end
+        end
+    end
+
+    def guess_is_right(guess) 
+        add_to_guessed_letters(guess) #works
+        display_letters  #dosen't work
     end
 
     def guess_wrong(guess)
@@ -47,31 +70,7 @@ class Game
         word
     end
 
-    
-
-    def display_letters
-            @guessed_letters.each do |guess|
-                @code.split("").each_with_index do |letter, index|
-                    if guess == letter 
-                        @secret_word[index] = guess
-                    end
-                end
-            end
-    end
-
-    def display
-        display_letters
-        print "guessed letters: #{@guessed_letters}  \n wrong answers: #{wrong_answers} \n"
-    end
-
-
-
-    def add_to_guessed_letters(guess)
-        if !@guessed_letters.any?(guess) then @guessed_letters << guess end 
-    end
-
-
-    def secret_word
+    def generate_secret_word
         @secret_word = []
         
         @code.length.times do
