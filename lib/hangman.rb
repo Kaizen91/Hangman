@@ -16,6 +16,7 @@ class Game
     end
 
     def check_guess_format(guess)
+        guess = guess.upcase
         if (!guessed_letters.include?(guess) && guess.length == 1  && guess.count("a-zA-Z") > 0)
             return true
         else
@@ -47,8 +48,8 @@ class Game
     end
 
     def guess_is_right(guess) 
-        add_to_guessed_letters(guess) #works
-        display_letters  #dosen't work
+        add_to_guessed_letters(guess)
+        display_letters 
     end
 
     def guess_wrong(guess)

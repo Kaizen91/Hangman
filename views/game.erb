@@ -3,16 +3,17 @@
     <img class="hangman" src="/images/Hangman-6.png" alt = "hangman image">
     <div class= "losing_message">  
     <p>You Lose!</p> 
-    <p><%"The word was #{code}" %></p>
-    <%= erb :index %>
+    <p><%="The word was #{code}" %></p>
     </div>
+     <%= erb :index %>
 
 
 <% elsif !game.secret_word.any?("_")%>
     <div class = "wining message">
     <p>You Win!</p>
-    <p><% "The word was #{code}" %></p>
+    <p><%= "The word was #{code}" %></p>
     </div>
+    <%= erb :index %>
 
 <% else %>
   <%= erb :display_hangman, :locals => {:wrong_answers => wrong_answers} %>

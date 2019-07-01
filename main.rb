@@ -29,10 +29,12 @@ post '/game' do
     guessed_letter = params['guessed_letter'].upcase
     
     if session[:game].check_guess_format(guessed_letter)
-        if session[:game].any_letters?(guessed_letter) #works
-            session[:game].guess_is_right(guessed_letter) #doesn't work
+        if session[:game].any_letters?(guessed_letter) 
+            session[:game].guess_is_right(guessed_letter) 
+        elsif !session[:game].any_letters?(guessed_letter)
+            session[:game].guess_wrong(guessed_letter) 
         else
-            session[:game].guess_wrong(guessed_letter) #works
+            redirect to("/game")
         end
     else
         redirect to("/")
